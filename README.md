@@ -1,3 +1,10 @@
+# auto3dgm-matlab-gorgon
+This is a fork of the auto3dgm MATLAB package [PuenteAlignment](https://github.com/trgao10/PuenteAlignment). The aim of this fork is to provide improved user experience and to add additional functionality both upstream and downstream from the core auto3dgm workflow. This package is under active development and the latest version can be found in the [dev](https://github.com/JuliaWinchester/auto3dgm-matlab-gorgon/tree/dev) branch. The [master](https://github.com/JuliaWinchester/auto3dgm-matlab-gorgon/tree/master) branch of this repository will eventually contain stable milestone releases, but currently it is basically identical to the original repository.
+
+The PuenteAlignment readme is below.
+
+-----------
+
 # Puente Alignment
 MST-based Generalized Dataset Procrustes Distance by Jesús Puente
 
