@@ -6,10 +6,10 @@ if (restart == 1)
     system(['mkdir ' outputPath]);
 end
 
-touch([outputPath 'original/']);
-touch([outputPath 'subsampled/']);
-touch([outputPath 'aligned/']);
-touch([outputPath 'jobs/']);
+touch(fullfile(outputPath, 'original', filesep));
+touch(fullfile(outputPath, 'subsampled', filesep));
+touch(fullfile(outputPath, 'aligned', filesep));
+touch(fullfile(outputPath, 'jobs', filesep));
 set(0,'RecursionLimit',1500);
 
 %% information and parameters
@@ -19,15 +19,15 @@ ds.run     = '';     % Used for writing output and intermediate files
 [ds.names, suffix] = getFileNames(meshesPath);
 ds.ids     = arrayfun(@(x) sprintf('%03d', x), 1:length(ds.names), 'UniformOutput', 0);
 cellfun(@(a,b) copyfile(a,b),...
-    cellfun(@(x) [meshesPath x suffix], ds.names, 'UniformOutput', 0),...
-    cellfun(@(x) [outputPath 'original/' x suffix], ds.ids, 'UniformOutput', 0));
+    cellfun(@(x) fullfile(meshesPath, [x suffix]), ds.names, 'UniformOutput', 0),...
+    cellfun(@(x) fullfile(outputPath, 'original', [x suffix]), ds.ids, 'UniformOutput', 0));
 
 %% paths to be passed as global constants
 ds.n                = length( ds.ids ); %Number of shapes
 ds.K                = length( ds.N ); %Number of levels
 ds.msc.mesh_dir     = meshesPath;
 ds.msc.output_dir   = outputPath;
-ds.msc.mesh_aligned_dir = [outputPath 'aligned/'];
+ds.msc.mesh_aligned_dir = fullfile(outputPath, 'aligned', filesep);
 
 %% Useful lambda functions
 center = @(X) X-repmat(mean(X,2),1,size(X,2));
@@ -40,7 +40,8 @@ scale  = @(X) norm(center(X),'fro') ;
 ds.shape = cell ( 1, ds.n );
 for ii = 1 : ds.n
     fprintf('Subsampling %s......', ds.names{ii});
-    [ds.shape{ ii }.origV, ds.shape{ ii }.origF] = read_off([meshesPath ds.names{ii} suffix]);
+    [ds.shape{ ii }.origV, ds.shape{ ii }.origF] = ...
+        read_off(fullfile(meshesPath, [ds.names{ii} suffix]));
     ds.shape{ ii }.X              = cell( 1, ds.K );
     ds.shape{ ii }.X{ ds.K }      = get_subsampled_shape( outputPath, ds.ids{ii} , ds.N( ds.K ) );
     ds.shape{ ii }.center         = mean(  ds.shape{ ii }.X{ ds.K }, 2 );
@@ -63,7 +64,7 @@ end
 %Read the low resolution files, these are used for display puposes only
 for ii = 1 : ds.n
     %Read the files
-    lowres_off_fn = [outputPath 'subsampled' filesep ds.ids{ii} '.off'];
+    lowres_off_fn = fullfile(outputPath, 'subsampled', [ds.ids{ii}, '.off']);
     if exist( lowres_off_fn , 'file' )
         [ds.shape{ ii }.lowres.V ,ds.shape{ ii }.lowres.F] = read_off(lowres_off_fn);
     else
@@ -84,7 +85,7 @@ pa.A          = upper_triangle( ds.n ); % a 1 entry in this matrix indicates the
 pa.max_iter   = max_iter;
 pa.allow_reflection = allow_reflection;
 f             = @( ii , jj ) gpd( ds.shape{ii}.X{k}, ds.shape{jj}.X{k}, pa.max_iter, pa.allow_reflection );
-pa.pfj        = [ds.msc.output_dir 'jobs/low/'];
+pa.pfj        = fullfile(ds.msc.output_dir, 'jobs', 'low', filesep); % 'pfj' stands for path for jobs
 pa.codePath   = codePath;
 pa.email_notification = email_notification;
 
@@ -95,6 +96,6 @@ touch(pa.pfj);
 pa = compute_alignment( pa, f, n_jobs, use_cluster );
 
 disp('Saving current workspace...');
-save([outputPath 'session_low.mat'], '-v7.3');
+save(fullfile(outputPath, 'session_low.mat'), '-v7.3');
 disp('Saved!');
 
