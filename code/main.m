@@ -164,6 +164,7 @@ ga     = globalize( pa, mst , 1 );
 ga.k   = k;
 
 %% Output higher resolution
+write_obj_aligned_shapes(ds, ga, 0);
 write_off_global_alignment( fullfile(ds.msc.output_dir, 'alignment_high.off'), ds , ga, 1:ds.n, 10, [cos(theta) -sin(theta) 0 ; sin(theta) cos(theta) 0; 0 0 1]*[ 0 0 1; 0 -1 0; 1 0 0]*ds.shape{1}.U_X{k}',3.0,1);
 write_morphologika( fullfile(ds.msc.output_dir, 'morphologika_unscaled_high.txt'), ds, ga );
 save( fullfile(ds.msc.output_dir, 'session_2.mat'), 'ds', 'pa', 'ga', 'mst' );
