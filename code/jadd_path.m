@@ -16,11 +16,14 @@ outputPath = '/gtmp/BoyerLab/Debug-Nov14-2016/output/';
 restart = 1;
 iniNumPts = 200;
 finNumPts = 1000;
-n_jobs = 100; %%% more nodes, more failure (no hadoop!)
-use_cluster = 0;
 allow_reflection = 1;
 max_iter = 3000;
+use_cluster = 0;
+n_jobs = 100; %%% more nodes, more failure (no hadoop!)
 email_notification = '';
+
+%%%%% experimental parameters
+align_to = 'auto';
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%% do not modify anything beyond this point

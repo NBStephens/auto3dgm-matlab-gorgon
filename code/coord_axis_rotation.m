@@ -1,17 +1,16 @@
 function coordR = coord_axis_rotation(vertexArray)
 % COORD_AXIS_ROTATION - Return rotation matrix to orient PCAs to coordinate axes
-% For a collection of centered scaled aligned surface meshes, derives principal axes of shape 
-% variation and calculates rotation matrix to align first, second, and third 
-% principal axes with Y, X, and Z coordinate axes respectively. Applying 
-% rotation matrix to surface meshes orients surfaces so that principal axes of 
-% shape variation correspond to coordinate axes, providing a semi-standardized 
-% orientation in 3D space. 
+% For a collection of centered scaled aligned surface meshes, derives principal 
+% axes of shape variation and calculates rotation matrix to align first, second,
+% and third principal axes with Y, X, and Z coordinate axes respectively. 
+% Applying rotation matrix to surface meshes orients surfaces so that principal
+% axes of shape variation correspond to coordinate axes, providing a 
+% semi-standardized orientation in 3D space. 
 %
-% Syntax: coordR = coord_axis_rotation(ds, ga)
+% Syntax: coordR = coord_axis_rotation(vertexArray)
 %
 % Inputs:
-%	ds - Structure array of surface shape data (see clusterMapLowRes.m)
-%   ga - Structure array of alignment data (see clusterMapLowRes.m, globalize.m)
+%	vertexArray - Cell array of 3xn surface shape XYZ vertices
 % 			   	
 % Outputs:
 % 	coordR - 3x3 rotation matrix aligning PCAs to coordinate axes
@@ -22,11 +21,9 @@ function coordR = coord_axis_rotation(vertexArray)
 % Website: http://www.apotropa.com
 % January 5, 2017
 
+center = @(X) X-repmat(mean(X,2),1,size(X,2));
+
 vertex = cell2mat(vertexArray);
-% vertex = [];
-% for ii = 1 : length(meshArray)
-% 	vertex = [vertex meshArray{ii}.V];
-% end
 
 w = pca(vertex');
 pcVector = center(w);
@@ -36,5 +33,7 @@ covariance = pcVector * axisVector';
 coordR = svdV * svdU';
 
 if det(coordR) < 0
-	coordR = [coordR(:,1:2), -coordR(:,3)];
+	disp('coordR is reflection matrix; changing sign of svdV 3rd column and recalculating...');
+	svdV(:,3) = -svdV(:,3);
+	coordR = svdV * svdU';
 end

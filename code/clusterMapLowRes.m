@@ -25,6 +25,7 @@ cellfun(@(a,b) copyfile(a,b),...
 %% paths to be passed as global constants
 ds.n                = length( ds.ids ); %Number of shapes
 ds.K                = length( ds.N ); %Number of levels
+[ds.base, ds.refAlign]  = ref_align_params( align_to, strcat(ds.names, suffix));
 ds.msc.mesh_dir     = meshesPath;
 ds.msc.output_dir   = outputPath;
 ds.msc.mesh_aligned_dir = fullfile(outputPath, 'aligned', filesep);

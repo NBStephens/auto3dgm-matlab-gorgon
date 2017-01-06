@@ -48,10 +48,11 @@ cellfun(@(a,b) copyfile(a,b),...
     cellfun(@(x) fullfile(outputPath, 'original', [x suffix]), ds.ids, 'UniformOutput', 0));
 
 %% paths to be passed as global constants
-ds.n                = length( ds.ids ); %Number of shapes
-ds.K                = length( ds.N ); %Number of levels
-ds.msc.mesh_dir     = meshesPath;
-ds.msc.output_dir   = outputPath;
+ds.n                    = length( ds.ids ); %Number of shapes
+ds.K                    = length( ds.N ); %Number of levels
+[ds.base, ds.refAlign]  = ref_align_params( align_to, strcat(ds.names, suffix));
+ds.msc.mesh_dir         = meshesPath;
+ds.msc.output_dir       = outputPath;
 ds.msc.mesh_aligned_dir = fullfile(outputPath, 'aligned', filesep);
 
 %% Useful lambda functions
@@ -126,13 +127,14 @@ pa = reduce( ds, pa, n_jobs );
 %% Globalization
 % 'ga' stands for global alignment
 mst     = graphminspantree( sparse( pa.d + pa.d' ) );
-ga      = globalize( pa, mst+mst', 2 ); 
+ga      = globalize( pa, mst+mst', ds.base); 
 ga.k    = k;
 
 plot_tree( pa.d+pa.d', mst, ds.names, 'mds', ones(1,ds.n),'');
 
 %% Output low resolution
 theta = pi/2; % Useful for rotating files to look nicer
+write_obj_aligned_shapes(ds, ga);
 write_off_global_alignment( fullfile(ds.msc.output_dir, 'alignment_low.off'), ds, ga, 1:ds.n, 10, [cos(theta) -sin(theta) 0 ; sin(theta) cos(theta) 0; 0 0 1]*[ 0 0 1; 0 -1 0; 1 0 0]*ds.shape{1}.U_X{k}', 3.0, 1);
 write_morphologika( fullfile(ds.msc.output_dir, 'morphologika_unscaled_low.txt'), ds, ga );
 % theta=pi/2; % Useful for rotating files to look nicer
@@ -160,11 +162,11 @@ pa = reduce( ds, pa, n_jobs );
 
 %% Globalization
 % mst is the same as before
-ga     = globalize( pa, mst , 1 );
+ga     = globalize( pa, mst , ds.base);
 ga.k   = k;
 
 %% Output higher resolution
-write_obj_aligned_shapes(ds, ga, 0);
+write_obj_aligned_shapes(ds, ga);
 write_off_global_alignment( fullfile(ds.msc.output_dir, 'alignment_high.off'), ds , ga, 1:ds.n, 10, [cos(theta) -sin(theta) 0 ; sin(theta) cos(theta) 0; 0 0 1]*[ 0 0 1; 0 -1 0; 1 0 0]*ds.shape{1}.U_X{k}',3.0,1);
 write_morphologika( fullfile(ds.msc.output_dir, 'morphologika_unscaled_high.txt'), ds, ga );
 save( fullfile(ds.msc.output_dir, 'session_2.mat'), 'ds', 'pa', 'ga', 'mst' );
