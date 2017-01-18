@@ -24,6 +24,7 @@ email_notification = '';
 
 %%%%% experimental parameters
 align_to = 'auto';
+do_tangent_pca = 1;
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%% do not modify anything beyond this point
