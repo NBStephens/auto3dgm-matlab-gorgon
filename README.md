@@ -13,15 +13,12 @@ Users can control the overall alignment of surface meshes (after meshes are alig
 
 If the 'do_tangent_pca' field in jadd_path.m is set to 1, then auto3dgm carries out a principal components analysis of partial procrustes tangent shape coordinates.  The method used for the tangent space projection is that of Dryden and Mardia's (1993, 1998, 2016) paper and textbook for unit-scaled shape data, but using the calculations from Rohlf's (1999) description of 'Kendall tangent space coordinates'. Several files are saved with PCA results, including a basic scatter plot of PC1 and PC2, PC scores per individual, eigenvalues and percent variance explained per PC, and eigenvectors per PC.
 
+-----------
 
 #### Using auto3dgm-matlab-gorgon
 
------------
-
 #### Sequential Execution
 The entry point is the script `code/main.m`; see comments at the top of that script for a quick introduction. 
-
------------
 
 #### Parallel Execution
 The current version of auto3dgm-matlab-gorgon supports parallel computations on a cluster managed by Sun Grid Engine (SGE). To enable parallel execution, follow the steps 1 to 6 below.
