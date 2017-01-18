@@ -15,7 +15,8 @@ If the 'do_tangent_pca' field in jadd_path.m is set to 1, then auto3dgm carries 
 
 -----------
 
-#### Using auto3dgm-matlab-gorgon
+## Using auto3dgm-matlab-gorgon
+
 
 #### Sequential Execution
 The entry point is the script `code/main.m`; see comments at the top of that script for a quick introduction. 
