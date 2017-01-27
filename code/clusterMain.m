@@ -11,7 +11,7 @@ funcArg = {'clusterMapLowRes', 'clusterReduceLowRes', 'clusterMapHighRes', 'clus
 
 PBS = '#PBS -l nodes=1:ppn=1,walltime=3:00:00\n#PBS -m abe\n';
 command = 'matlab -nodesktop -nodisplay -nojvm -nosplash -r ';
-matlab_call = @(n) ['\"' funcArg{n} '; exit;\"'];
+matlab_call = @(n) ['\"cd ' pwd '; ' funcArg{n} '; exit;\"'];
 
 qsub = '!qsub ';
 holdArg = {'', '-hold_jid clusterMapLowRes, job* ', '-hold_jid clusterReduceLowRes ', '-hold_jid clusterMapHighRes, job* '};
@@ -27,7 +27,7 @@ for i = 1:length(funcArg)
 	% Evaluate qsub with script
 	qsub_call = [qsub holdArg{i} etcArg(i)];
 	disp(qsub_call);
-	%eval(qsub_call);
+	eval(qsub_call);
 end
 
 % sequence of qsub calls
