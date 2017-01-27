@@ -188,4 +188,9 @@ proc_d=(proc_d+proc_d')/2;
 coords=mdscale(proc_d,3)';
 write_off_placed_shapes( fullfile(ds.msc.output_dir,'map.off'), coords, ds, ga, eye(3), mst_proc_d);
 
+%% Optional principal components analysis of partial procrustes tangent coordinates
+if do_tangent_pca == 1
+    tangent_pca(ds, ga, k);
+end
+
 disp('Alignment Completed');
