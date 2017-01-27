@@ -1,9 +1,11 @@
 % Executes cluster analysis from single script
 
-touch('./cluster');
-touch('./cluster/output');
-touch('./cluster/error');
-touch('./cluster/script');
+codePath = pwd;
+
+touch(fullfile(pwd, './cluster'));
+touch(fullfile(pwd, './cluster/output'));
+touch(fullfile(pwd, './cluster/error'));
+touch(fullfile(pwd, './cluster/script'));
 
 funcArg = {'clusterMapLowRes', 'clusterReduceLowRes', 'clusterMapHighRes', 'clusterReduceLowRes'};
 
@@ -12,13 +14,13 @@ command = 'matlab -nodesktop -nodisplay -nojvm -nosplash -r ';
 matlab_call = @(n) ['\"' funcArg{n} '; exit;\"'];
 
 qsub = '!qsub ';
-holdArg = {'', '-hold_jid clusterMapLowRes, job*', '-hold_jid clusterReduceLowRes', '-hold_jid clusterMapHighRes, job*'};
-etcArg = @(n) ['-N ' funcArg{n} ' -o ./cluster/output/stdout_' funcArg{n} ' -e ./cluster/error/stderr_' funcArg{n} ' ./cluster/script/script_' funcArg{n}]; 
+holdArg = {'', '-hold_jid clusterMapLowRes, job* ', '-hold_jid clusterReduceLowRes ', '-hold_jid clusterMapHighRes, job* '};
+etcArg = @(n) ['-N ' funcArg{n} ' -o ' fullfile(pwd, '/cluster/output/', ['stdout_' funcArg{n}]) ' -e ' fullfile(pwd, '/cluster/error/', ['stderr_' funcArg{n}]) ' ' fullfile(pwd, '/cluster/script', ['script_' funcArg{n}])]; 
 
 for i = 1:length(funcArg)
 	% Create script
 	txt = [PBS command matlab_call(i)];
-	fid = fopen(['./cluster/script/script_', funcArg{i}], 'w');
+	fid = fopen(fullfile(pwd, '/cluster/script/', ['script_', funcArg{i}]), 'w');
 	fprintf(fid, txt);
 	fclose(fid);
 
