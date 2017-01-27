@@ -1,5 +1,10 @@
 % Executes cluster analysis from single script
 
+touch('./cluster');
+touch('./cluster/output');
+touch('./cluster/error');
+touch('./cluster/script');
+
 funcArg = {'clusterMapLowRes', 'clusterReduceLowRes', 'clusterMapHighRes', 'clusterReduceLowRes'};
 
 PBS = '#PBS -l nodes=1:ppn=1,walltime=3:00:00\n#PBS -m abe\n';
@@ -19,7 +24,8 @@ for i = 1:length(funcArg)
 
 	% Evaluate qsub with script
 	qsub_call = [qsub holdArg{i} etcArg(i)];
-	eval(qsub_call);
+	disp(qsub_call);
+	%eval(qsub_call);
 end
 
 % sequence of qsub calls
