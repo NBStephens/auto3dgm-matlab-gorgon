@@ -2,10 +2,14 @@
 
 codePath = pwd;
 
-touch(fullfile(pwd, './cluster'));
-touch(fullfile(pwd, './cluster/output'));
-touch(fullfile(pwd, './cluster/error'));
-touch(fullfile(pwd, './cluster/script'));
+touch(fullfile(pwd, '/cluster'));
+touch(fullfile(pwd, '/cluster/output'));
+touch(fullfile(pwd, '/cluster/error'));
+touch(fullfile(pwd, '/cluster/script'));
+
+delete(fullfile(pwd, '/cluster/output/*'));
+delete(fullfile(pwd, '/cluster/error/*'));
+delete(fullfile(pwd, '/cluster/script/*'));
 
 funcArg = {'clusterMapLowRes', 'clusterReduceLowRes', 'clusterMapHighRes', 'clusterReduceLowRes'};
 
@@ -14,7 +18,7 @@ command = 'matlab -nodesktop -nodisplay -nojvm -nosplash -r ';
 matlab_call = @(n) ['\"cd ' pwd '; ' funcArg{n} '; exit;\"'];
 
 qsub = '!qsub ';
-holdArg = {'', '-hold_jid clusterMapLowRes, job* ', '-hold_jid clusterReduceLowRes ', '-hold_jid clusterMapHighRes, job* '};
+holdArg = {'sync -y ', '-hold_jid "clusterMapLowRes, job*" ', '-hold_jid clusterReduceLowRes ', '-hold_jid "clusterMapHighRes, job*" '};
 etcArg = @(n) ['-N ' funcArg{n} ' -o ' fullfile(pwd, '/cluster/output/', ['stdout_' funcArg{n}]) ' -e ' fullfile(pwd, '/cluster/error/', ['stderr_' funcArg{n}]) ' ' fullfile(pwd, '/cluster/script', ['script_' funcArg{n}])]; 
 
 for i = 1:length(funcArg)
