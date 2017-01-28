@@ -17,22 +17,21 @@ If the 'do_tangent_pca' field in jadd_path.m is set to 1, then auto3dgm carries 
 
 ## Using auto3dgm-matlab-gorgon
 
+The current version of auto3dgm-matlab-gorgon supports standard sequential execution on any matlab installation or parallel computation on a cluster managed by Sun Grid Engine (SGE). Follow the instructions below for installation and usage of this software.
 
-#### Sequential Execution
-The entry point is the script `code/main.m`; see comments at the top of that script for a quick introduction. 
-
-#### Parallel Execution
-The current version of auto3dgm-matlab-gorgon supports parallel computations on a cluster managed by Sun Grid Engine (SGE). To enable parallel execution, follow the steps 1 to 6 below.
-
-1. Get the current version of PuenteAlignment. Simply `cd` into your desired path, then type
+1. Get the current version of auto3dgm-matlab-gorgon. Either download the repository files directly to the desired path, or if `git` is installed simply `cd` into your desired path, then type
 
         git clone https://github.com/JuliaWinchester/auto3dgm-matlab-gorgon.git
         
-2. Find script `jadd_path.m` in the folder *auto3dgm-matlab-gorgon/code/*, and set paths and parameters there. If you assign an email address to the variable `email_notification`, a notification will be sent automatically to that email address whenever a cluster job completes or aborts.
-3. Launch `MATLAB`, `cd` into the folder *auto3dgm-matlab-gorgon/code/*, type in `clusterMapLowRes` and press `ENTER`. All jobs should then be submitted to the cluster. Use `qstat` to monitor job status.
-4. After all jobs are completed, type in `clusterReduceLowRes` and press `ENTER`. This generates low-resolution alignment results in the `output` folder you specified in `jadd_path.m`.
-5. Type in `clusterMapHighRes` and press `ENTER` to submit high-resolution alignment jobs to the cluster. Use `qstat` to monitor job status.
-6. After all jobs are completed, type in `clusterReduceHighRes` and press `ENTER`. This generates high-resolution alignment results in the `output` folder you specified in ```jadd_path.m```.
+2. Find the script `jadd_path.m` in the folder *auto3dgm-matlab-gorgon/code/*, and set paths and parameters there. If you are using parallel computation and assign an email address to the variable `email_notification`, a notification will be sent automatically to that email address whenever a cluster job completes or aborts.
+3. Launch `MATLAB` and `cd` into the folder *auto3dgm-matlab-gorgon/code/*. If sequential non-cluster analysis is desired, type `main` to run the script `main.m`. If parallel cluster analysis is desired, type `clusterMain` to run the script `clusterMain.m`. Jobs should be submitted to the cluster subsequently. Use `qstat` to monitor job status. Analysis is complete when job `clusterRun` is finished. 
+
+The script `clusterRun.m` automates the four major steps of auto3dgm parallel computation. It is also possible to run these four steps manually following these instructions.
+
+1. Launch `MATLAB`, `cd` into the folder *auto3dgm-matlab-gorgon/code/*, and type `clusterMapLowRes`. Low-resolution alignment jobs should then be submitted to the cluster. Use `qstat` to monitor job status.
+2. After all jobs are completed, type `clusterReduceLowRes`. This generates low-resolution alignment results in the `output` folder specified in `jadd_path.m`.
+3. Type `clusterMapHighRes` to submit high-resolution alignment jobs to the cluster. 
+4. After all jobs are completed, type in `clusterReduceHighRes`. This generates high-resolution alignment results in the `output` folder specified in `jadd_path.m`.
 
 -----------
 #### WebGL-based Alignment Visualization
