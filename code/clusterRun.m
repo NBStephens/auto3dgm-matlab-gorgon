@@ -1,8 +1,6 @@
 % Executes cluster analysis major steps
 % This script should be run as a cluster job
 
-codePath = pwd;
-
 touch(fullfile(pwd, '/cluster'));
 touch(fullfile(pwd, '/cluster/output'));
 touch(fullfile(pwd, '/cluster/error'));
@@ -12,10 +10,10 @@ delete(fullfile(pwd, '/cluster/output/*'));
 delete(fullfile(pwd, '/cluster/error/*'));
 delete(fullfile(pwd, '/cluster/script/*'));
 
-funcArg = {'clusterMapLowRes', 'clusterReduceLowRes', 'clusterMapHighRes', 'clusterReduceLowRes'};
+funcArg = {'clusterMapLowRes', 'clusterReduceLowRes', 'clusterMapHighRes', 'clusterReduceHighRes'};
 
 PBS = '#PBS -l nodes=1:ppn=1,walltime=3:00:00\n#PBS -m abe\n';
-command = 'matlab -nodesktop -nodisplay -nojvm -nosplash -r ';
+command = 'matlab -nodesktop -nodisplay -nosplash -r ';
 matlab_call = @(n) ['\"cd ' pwd '; ' funcArg{n} '; exit;\"'];
 
 qsub = '!qsub ';
