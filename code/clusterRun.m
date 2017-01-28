@@ -20,12 +20,11 @@ matlab_call = @(n) ['\"cd ' pwd '; ' funcArg{n} '; exit;\"'];
 
 qsub = '!qsub ';
 holdArg = {'-sync y ', '-sync y -hold_jid job* ', '-sync y ', '-sync y -hold_jid job* '};
-etcArg = @(n) ['-N ' funcArg{n} ' -o ' fullfile(pwd, '/cluster/output/', ['stdout_' funcArg{n}]) ' -e ' fullfile(pwd, '/cluster/error/', ['stderr_' funcArg{n}]) ' ' fullfile(pwd, '/cluster/script', ['script_' funcArg{n}])]; 
 
 if (length(strfind(email_notification, '@')) == 1)
 	etcArg = @(n) ['-m e -M ' email_notification ' -N ' funcArg{n} ' -o ' fullfile(pwd, '/cluster/output/', ['stdout_' funcArg{n}]) ' -e ' fullfile(pwd, '/cluster/error/', ['stderr_' funcArg{n}]) ' ' fullfile(pwd, '/cluster/script', ['script_' funcArg{n}])]; 
 else
-    etcArg = @(n) ['-N ' funcArg{n} ' -o ' fullfile(pwd, '/cluster/output/', ['stdout_' funcArg{n}]) ' -e ' fullfile(pwd, '/cluster/error/', ['stderr_' funcArg{n}]) ' ' fullfile(pwd, '/cluster/script', ['script_' funcArg{n}])]; 
+	etcArg = @(n) ['-N ' funcArg{n} ' -o ' fullfile(pwd, '/cluster/output/', ['stdout_' funcArg{n}]) ' -e ' fullfile(pwd, '/cluster/error/', ['stderr_' funcArg{n}]) ' ' fullfile(pwd, '/cluster/script', ['script_' funcArg{n}])]; 
 end
 
 for i = 1:length(funcArg)
