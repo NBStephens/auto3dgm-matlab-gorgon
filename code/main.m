@@ -35,7 +35,9 @@ touch(fullfile(outputPath, 'original', filesep));
 touch(fullfile(outputPath, 'subsampled', filesep));
 touch(fullfile(outputPath, 'aligned', filesep));
 touch(fullfile(outputPath, 'jobs', filesep));
+
 set(0,'RecursionLimit',1500);
+rng('shuffle');
 
 %% Information and parameters
 ds.N       = [iniNumPts, finNumPts];  % Number of points to spread
