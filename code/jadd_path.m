@@ -6,11 +6,11 @@
 %%%%% setup parameters in this section 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%% "meshesPath" is where the orignal meshes are located
-meshesPath = '/gtmp/BoyerLab/Debug-Nov14-2016/data/';
+meshesPath = '/gtmp/BoyerLab/julie/prime/derived/simp10ksmooth100mlclean_off';
 
 %%%%% "outputPath" stores intermediate files, re-aligned meshes, and
 %%%%% morphologika files
-outputPath = '/gtmp/BoyerLab/Debug-Nov14-2016/output/';
+outputPath = '/gtmp/BoyerLab/julie/prime_auto3dgm_result';
 
 %%%%% set parameters for the algorithm
 restart = 1;
@@ -18,7 +18,7 @@ iniNumPts = 200;
 finNumPts = 1000;
 allow_reflection = 1;
 max_iter = 3000;
-use_cluster = 0;
+use_cluster = 1;
 n_jobs = 100; %%% more nodes, more failure (no hadoop!)
 email_notification = '';
 
