@@ -42,7 +42,6 @@ else
     prob.blx = lb_red;
     param.MSK_IPAR_OPTIMIZER = 'MSK_OPTIMIZER_PRIMAL_SIMPLEX';
     [~,res] = mosekopt('minimize echo(0)',prob,param);
-    res
     P_red = res.sol.bas.xx;
     d = res.sol.bas.pobjval;
     
