@@ -12,7 +12,9 @@ mst     = graphminspantree( sparse( pa.d + pa.d' ) );
 ga      = globalize( pa, mst+mst', ds.base ); 
 ga.k    = k;
 
-plot_tree( pa.d+pa.d', mst, ds.names, 'mds', ones(1,ds.n),'');
+if ds.n > 2
+	plot_tree( pa.d+pa.d', mst, ds.names, 'mds', ones(1,ds.n),'');
+end
 
 %% Output low resolution
 theta = pi/2; % Useful for rotating files to look nicer

@@ -34,11 +34,22 @@ for ii = 1 : ds.n
     end
 end
 mst_proc_d = graphminspantree( sparse( proc_d + proc_d' ) );
-plot_tree( proc_d+proc_d' , mst_proc_d , ds.names , 'mds', ones(1,ds.n) , 'MDS procrustes distances' );
-
 proc_d = (proc_d+proc_d')/2;
-coords = mdscale(proc_d,3)';
-write_off_placed_shapes( fullfile(ds.msc.output_dir,'map.off'), coords, ds, ga, eye(3), mst_proc_d);
+
+if ds.n > 2
+	plot_tree( proc_d , mst_proc_d , ds.names , 'mds', ones(1,ds.n) , 'MDS procrustes distances' );
+	coords = mdscale(proc_d,3)';
+	if size(coords,1) == 3
+		write_off_placed_shapes( fullfile(ds.msc.output_dir,'map.off'), coords, ds, ga, eye(3), mst_proc_d);
+	end
+end
+
+%% Optional outputting of procrustes distance matrix of rotated meshes
+if do_procrustes_dist_output == 1
+	names = matlab.lang.makeValidName(ds.names, 'ReplacementStyle', 'hex');
+	d_table = array2table(proc_d, 'RowNames', names, 'VariableNames', names);
+	writetable(d_table, fullfile(ds.msc.output_dir, 'proc_d.csv'));
+end
 
 %% Optional principal components analysis of partial procrustes tangent coordinates
 if do_tangent_pca == 1
