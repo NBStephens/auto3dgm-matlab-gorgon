@@ -13,7 +13,8 @@ end
 
 % Compute MST and use as default parameter for tree
 dbp     = squareform(pdist(coords'));
-mst     = graphminspantree(sparse(dbp));
+mst = varargin{2};
+% mst     = graphminspantree(sparse(dbp));
 tree    = mst;
 if( nargin >=6 )
 tree    = varargin{2};
