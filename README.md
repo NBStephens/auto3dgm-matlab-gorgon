@@ -2,18 +2,19 @@
 MST-based Generalized Dataset Procrustes Distance by Jesús Puente
 
 
-	MATLAB code forked from JuliaWinchester/auto3dgm-matlab-gorgon (https://github.com/JuliaWinchester/auto3dgm-matlab-gorgon.git). 
-		
-	Code adjusted to run on Penn State University HPC (aci-ics) torque system. 
-	Currently this cannot be run using the clusteRun.m script due to differences in the flag for waiting for previous scripts to finish. 
-	
-	As such, you must run with manually in the sequence: clusterMapLowRes -> clusterReduceLowRes` -> clusterMapHighRes` -> clusterMapHighRes` (as described below).
-	
-	Code has also been changed to:
-								Write out the transormation matrix and origin into the './aligned' folder. 
-								Set default submission time to 24:00 hrs from 3:00 hrs, to accomodate complex reorientations.
-								Set the submission to use a paid account. 
-									If you are not submitting from within the RyanLab you will need to change the "-A tmr21_b_g_sc_default" to another account (-A youraccount) or the campuswide open system (-A open).
+MATLAB code forked from JuliaWinchester/auto3dgm-matlab-gorgon (https://github.com/JuliaWinchester/auto3dgm-matlab-gorgon.git). 
+
+Code adjusted to run on Penn State University HPC (aci-ics) torque system. 
+Currently this cannot be run using the clusteRun.m script due to differences in the flag for waiting for previous scripts to finish. 
+
+As such, you must run with manually in the sequence: 
+    clusterMapLowRes -> clusterReduceLowRes` -> clusterMapHighRes` -> clusterMapHighRes` (as described below).
+
+Code has also been changed to:
+    Write out the transormation matrix and origin into the './aligned' folder. 
+    Set default submission time to 24:00 hrs from 3:00 hrs, to accomodate complex reorientations.
+    Set the submission to use a paid account. 
+    If you are not submitting from within the RyanLab you will need to change the "-A tmr21_b_g_sc_default" to another account (-A youraccount) or the campuswide open system (-A open).
 
 
 MATLAB Code originally written by Jesús Puente (jparrubarrena@gmail.com); forks of this code include [PuenteAlignment](https://github.com/trgao10/PuenteAlignment), maintained by Tingran Gao (trgao10@math.duke.edu), and [auto3dgm-matlab-gorgon](https://github.com/JuliaWinchester/auto3dgm-matlab-gorgon), maintained by Julie Winchester (julia.m.winchester@gmail.com). This code has also been ported to R by Christopher Glynn (glynn@stat.duke.edu) under the name [*auto3dgm*](https://stat.duke.edu/~sayan/auto3dgm/).
