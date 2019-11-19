@@ -1,10 +1,11 @@
 # auto3dgm-matlab-gorgon
 MST-based Generalized Dataset Procrustes Distance by Jesús Puente
 
-Changes:
+
 	MATLAB code forked from JuliaWinchester/auto3dgm-matlab-gorgon (https://github.com/JuliaWinchester/auto3dgm-matlab-gorgon.git). 
 		
-	Code adjusted to run on Penn State University HPC (aci-ics) torque system.  Currently this cannot be run using the clusteRun.m script due to differences in the flag for waiting for previous scripts to finish. 
+	Code adjusted to run on Penn State University HPC (aci-ics) torque system. 
+	Currently this cannot be run using the clusteRun.m script due to differences in the flag for waiting for previous scripts to finish. 
 	
 	As such, you must run with manually in the sequence: clusterMapLowRes -> clusterReduceLowRes` -> clusterMapHighRes` -> clusterMapHighRes` (as described below).
 	
