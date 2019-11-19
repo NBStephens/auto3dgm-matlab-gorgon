@@ -15,16 +15,16 @@ outputPath = '/gpfs/group/LiberalArts/default/tmr21_collab/RyanLab/Projects/For_
 
 %%%%% set parameters for the algorithm
 restart = 1;
-iniNumPts = 600;
-finNumPts = 1200;
-allow_reflection = 1; %%%%% A 1 allows for mirroring, a 0 does not. 
-max_iter = 3000;
-use_cluster = 1;
-n_jobs = 50; %%% more nodes, more failure (no hadoop!)
-email_notification = '';
+iniNumPts = 600; %The amount of psuedolandmarks used for the initial alignment.
+finNumPts = 1200; %The amount of psuedolandmarks used to the high resolution alignment.
+allow_reflection = 1; %%%%% A 1 allows for mirroring the bone, a 0 does not. 
+max_iter = 3000; %The number of iterations before ceasing the pairwise alignment.
+use_cluster = 1; %A 1 means you will be using the cluster, which is what you want with a large dataset.
+n_jobs = 50; %%% more nodes, more failure (no hadoop!) hadoop is an older parallel processing library, which you do want to have run.
+email_notification = ''; %If you want email notifications for job ending, fill this portion out. It can be a lot of emails, though. This has been modified to only email on abort.
 
 %%%%% experimental parameters
-align_to = 'auto';
+align_to = 'auto'; %Presumably set this to align to a specific bone. 
 do_tangent_pca = 1;
 do_procrustes_dist_output = 1;
 

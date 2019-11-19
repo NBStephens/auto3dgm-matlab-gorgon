@@ -14,7 +14,7 @@ delete(fullfile(pwd, '/cluster/script/*'));
 
 funcArg = {'clusterMapLowRes', 'clusterReduceLowRes', 'clusterMapHighRes', 'clusterReduceHighRes'};
 
-PBS = '#PBS -A tmr21_b_g_sc_default -l nodes=1:ppn=1,walltime=3:00:00\n#PBS -m abe\n';
+PBS = '#PBS -A tmr21_b_g_sc_default -l nodes=1:ppn=1,walltime=3:00:00\n#PBS -m a\n';
 modules = 'module load gcc/7.3.1 mkl/11.3.3 tbb/4.4.4 python/3.6.3-anaconda5.0.1 matlab/R2017b\n';
 command = 'matlab -nodesktop -nodisplay -nosplash -r ';
 matlab_call = @(n) ['\"cd ' pwd '; ' funcArg{n} '; exit;\"'];
@@ -46,23 +46,23 @@ end
 % clusterMapLowRes
 % !qsub -N clusterMapLowRes -o ./cluster/output/stdout_clusterMapLowRes -e ./cluster/error/stderr_clusterMapLowRes ./cluster/scripts/script_clusterMapLowRes
 % script_clusterMapLowRes:
-% #PBS -l nodes=1:ppn=1,walltime=3:00:00\n#PBS -m abe\n
+% #PBS -l nodes=1:ppn=1,walltime=3:00:00\n#PBS -m a\n
 % matlab -nodesktop -nodisplay -nojvm -nosplash -r "clusterMapLowRes; exit;"
 
 % clusterReduceLowRes
 % !qsub -N clusterReduceLowRes -hold_jid clusterMapLowRes, job* -o ./cluster/output/stdout_clusterReduceLowRes -e ./cluster/error/stderr_clusterReduceLowRes ./cluster/scripts/script_clusterReduceLowRes
 % script_clusterReduceLowRes:
-% #PBS -l nodes=1:ppn=1,walltime=3:00:00\n#PBS -m abe\n
+% #PBS -l nodes=1:ppn=1,walltime=3:00:00\n#PBS -m a\n
 % matlab -nodesktop -nodisplay -nojvm -nosplash -r "clusterReduceLowRes; exit;"
 
 % clusterMapHighRes
 % !qsub -N clusterMapHighRes -hold_jid clusterReduceLowRes -o ./cluster/output/stdout_clusterMapHighRes -e ./cluster/error/stderr_clusterMapHighRes ./cluster/scripts/script_clusterMapHighRes
 % script_clusterMapHighRes:
-% #PBS -l nodes=1:ppn=1,walltime=3:00:00\n#PBS -m abe\n
+% #PBS -l nodes=1:ppn=1,walltime=3:00:00\n#PBS -m a\n
 % matlab -nodesktop -nodisplay -nojvm -nosplash -r "clusterMapHighRes; exit;"
 
 % clusterReduceHighRes
 % !qsub -N clusterReduceHighRes -hold_jid clusterMapHighRes, job* -o ./cluster/output/stdout_clusterReduceHighRes -e ./cluster/error/stderr_clusterReduceHighRes ./cluster/scripts/script_clusterReduceHighRes
 % script_clusterReduceHighRes:
-% #PBS -l nodes=1:ppn=1,walltime=3:00:00\n#PBS -m abe\n
+% #PBS -l nodes=1:ppn=1,walltime=3:00:00\n#PBS -m a\n
 % matlab -nodesktop -nodisplay -nojvm -nosplash -r "clusterReduceHighRes; exit;"

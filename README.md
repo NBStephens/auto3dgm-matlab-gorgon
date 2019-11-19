@@ -1,9 +1,23 @@
 # auto3dgm-matlab-gorgon
 MST-based Generalized Dataset Procrustes Distance by Jesús Puente
 
+Changes:
+	MATLAB code forked from JuliaWinchester/auto3dgm-matlab-gorgon (https://github.com/JuliaWinchester/auto3dgm-matlab-gorgon.git). 
+		
+	Code adjusted to run on Penn State University HPC (aci-ics) torque system.  Currently this cannot be run using the clusteRun.m script due to differences in the flag for waiting for previous scripts to finish. 
+	
+	As such, you must run with manually in the sequence: clusterMapLowRes -> clusterReduceLowRes` -> clusterMapHighRes` -> clusterMapHighRes` (as described below).
+	
+	Code has also been changed to:
+								Write out the transormation matrix and origin into the './aligned' folder. 
+								Set default submission time to 24:00 hrs from 3:00 hrs, to accomodate complex reorientations.
+								Set the submission to use a paid account. 
+									If you are not submitting from within the RyanLab you will need to change the "-A tmr21_b_g_sc_default" to another account (-A youraccount) or the campuswide open system (-A open).
+
+
 MATLAB Code originally written by Jesús Puente (jparrubarrena@gmail.com); forks of this code include [PuenteAlignment](https://github.com/trgao10/PuenteAlignment), maintained by Tingran Gao (trgao10@math.duke.edu), and [auto3dgm-matlab-gorgon](https://github.com/JuliaWinchester/auto3dgm-matlab-gorgon), maintained by Julie Winchester (julia.m.winchester@gmail.com). This code has also been ported to R by Christopher Glynn (glynn@stat.duke.edu) under the name [*auto3dgm*](https://stat.duke.edu/~sayan/auto3dgm/).
 
-auto3dgm-matlab-gorgon is a fork of auto3dgm with a focus on providing improved user experience and additional functionality both upstream and downstream frmo the core workflow. The latest commits can be found in the [dev](https://github.com/JuliaWinchester/auto3dgm-matlab-gorgon/tree/dev) branch, but users are encouraged to clone the [master](https://github.com/JuliaWinchester/auto3dgm-matlab-gorgon) branch as it contains stable milestone releases. PuenteAlignment and auto3dgm-matlab-gorgon both have the same core MST-based alignment functionality. Auto3dgm-matlab-gorgon does not currently include the two spectral relaxation alignment algorithms included in the current PuenteAlignment version. Auto3dgm-matlab-gorgon does implement two new features currently: user control over how overall mesh alignment is handled after all sample meshes are aligned to each other, and principal components analysis of partial procrustes tangent shape coordinates. These new features are described below. This branch also has a number of smaller user experience improvements, such as support for OSX local analyses or more flexible directory formatting in jadd_path.m.
+auto3dgm-matlab-gorgon is a fork of auto3dgm with a focus on providing improved user experience and additional functionality both upstream and downstream from the core workflow. The latest commits can be found in the [dev](https://github.com/JuliaWinchester/auto3dgm-matlab-gorgon/tree/dev) branch, but users are encouraged to clone the [master](https://github.com/JuliaWinchester/auto3dgm-matlab-gorgon) branch as it contains stable milestone releases. PuenteAlignment and auto3dgm-matlab-gorgon both have the same core MST-based alignment functionality. Auto3dgm-matlab-gorgon does not currently include the two spectral relaxation alignment algorithms included in the current PuenteAlignment version. Auto3dgm-matlab-gorgon does implement two new features currently: user control over how overall mesh alignment is handled after all sample meshes are aligned to each other, and principal components analysis of partial procrustes tangent shape coordinates. These new features are described below. This branch also has a number of smaller user experience improvements, such as support for OSX local analyses or more flexible directory formatting in jadd_path.m.
 
 #### Overall mesh alignment
 
