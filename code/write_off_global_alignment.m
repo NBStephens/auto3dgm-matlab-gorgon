@@ -12,6 +12,7 @@ inds    = 1 : ds.n;
 if( nargin >= 4)
     inds    = varargin{1};
 end
+
 per_row = floor( sqrt( length( inds ) ) );
 if( nargin >= 5 )
     per_row = varargin{2};

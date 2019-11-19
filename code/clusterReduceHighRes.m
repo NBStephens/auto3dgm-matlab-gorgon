@@ -6,7 +6,6 @@ load(fullfile(outputPath, 'session_high.mat'));
 disp('Loaded!');
 
 pa = reduce( ds, pa, n_jobs );
-
 %% Globalization
 % mst is the same as before
 ga     = globalize( pa, mst , ds.base );

@@ -32,5 +32,17 @@ if ds.refAlign == 1
 end
 
 for ii = 1:ds.n
+    cen_rot = array2table(ds.shape{ii}.center, ...
+        'VariableNames', {'Center'});
+    writetable(cen_rot, [ds.msc.mesh_aligned_dir ds.names{ii}, '_center.csv']);
+    rot_mat = array2table(ga.R{ii}, ...
+        'VariableNames', {'x', 'y', 'z'});
+    writetable(rot_mat, [ds.msc.mesh_aligned_dir ds.names{ii}, '_rotation_matrix.txt']);
+    
+end
+    
+
+for ii = 1:ds.n
 	write_obj(fullfile(ds.msc.mesh_aligned_dir, [ds.names{ii}, '_aligned.obj']), vertexArray{ii}, ds.shape{ii}.origF);
+    
 end

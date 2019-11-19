@@ -6,18 +6,18 @@
 %%%%% setup parameters in this section 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%% "meshesPath" is where the orignal meshes are located
-meshesPath = '/gpfs/group/LiberalArts/default/tmr21_collab/RyanLab/Projects/For_Adam_G/auto3dgm/femur';
+meshesPath = '/gpfs/group/LiberalArts/default/tmr21_collab/RyanLab/Projects/For_Adam_G/auto3dgm/humerus';
 
 
 %%%%% "outputPath" stores intermediate files, re-aligned meshes, and
 %%%%% morphologika files
-outputPath = '/gpfs/group/LiberalArts/default/tmr21_collab/RyanLab/Projects/For_Adam_G/auto3dgm/femur_results_3';
+outputPath = '/gpfs/group/LiberalArts/default/tmr21_collab/RyanLab/Projects/For_Adam_G/auto3dgm/humerus_results_3';
 
 %%%%% set parameters for the algorithm
 restart = 1;
 iniNumPts = 600;
 finNumPts = 1200;
-allow_reflection = 1; %%%%% A 1 allows for mirroring, a 0 does not. 
+allow_reflection = 1; %
 max_iter = 3000;
 use_cluster = 1;
 n_jobs = 50; %%% more nodes, more failure (no hadoop!)
@@ -32,7 +32,6 @@ do_procrustes_dist_output = 1;
 %%%%% do not modify anything beyond this point
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 codePath= [fileparts(pwd) filesep];
-
 path(pathdef);
 path(path, genpath(fullfile(codePath, 'software', 'RectangularAssignment')));
 path(path, genpath(fullfile(codePath, 'software', 'ToolboxGraph')));

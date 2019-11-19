@@ -14,22 +14,23 @@ delete(fullfile(pwd, '/cluster/script/*'));
 
 funcArg = {'clusterMapLowRes', 'clusterReduceLowRes', 'clusterMapHighRes', 'clusterReduceHighRes'};
 
-PBS = '#PBS -l nodes=1:ppn=1,walltime=3:00:00\n#PBS -m abe\n';
+PBS = '#PBS -A tmr21_b_g_sc_default -l nodes=1:ppn=1,walltime=3:00:00\n#PBS -m abe\n';
+modules = 'module load gcc/7.3.1 mkl/11.3.3 tbb/4.4.4 python/3.6.3-anaconda5.0.1 matlab/R2017b\n';
 command = 'matlab -nodesktop -nodisplay -nosplash -r ';
 matlab_call = @(n) ['\"cd ' pwd '; ' funcArg{n} '; exit;\"'];
 
-qsub = '!qsub ';
-holdArg = {'-sync y ', '-sync y -hold_jid job* ', '-sync y ', '-sync y -hold_jid job* '};
+qsub = '!qsub';
+holdArg = {'-A tmr21_b_g_sc_default -sync y ', '-A tmr21_b_g_sc_default -sync y -hold_jid job* ', '-A tmr21_b_g_sc_default -sync y ', '-A tmr21_b_g_sc_default -sync y -hold_jid job* '};
 
 if (length(strfind(email_notification, '@')) == 1)
-	etcArg = @(n) ['-m e -M ' email_notification ' -N ' funcArg{n} ' -o ' fullfile(pwd, '/cluster/output/', ['stdout_' funcArg{n}]) ' -e ' fullfile(pwd, '/cluster/error/', ['stderr_' funcArg{n}]) ' ' fullfile(pwd, '/cluster/script', ['script_' funcArg{n}])]; 
+	etcArg = @(n) ['-A tmr21_b_g_sc_default -m e -M ' email_notification ' -N ' funcArg{n} ' -o ' fullfile(pwd, '/cluster/output/', ['stdout_' funcArg{n}]) ' -e ' fullfile(pwd, '/cluster/error/', ['stderr_' funcArg{n}]) ' ' fullfile(pwd, '/cluster/script', ['script_' funcArg{n}])]; 
 else
-	etcArg = @(n) ['-N ' funcArg{n} ' -o ' fullfile(pwd, '/cluster/output/', ['stdout_' funcArg{n}]) ' -e ' fullfile(pwd, '/cluster/error/', ['stderr_' funcArg{n}]) ' ' fullfile(pwd, '/cluster/script', ['script_' funcArg{n}])]; 
+	etcArg = @(n) ['-A tmr21_b_g_sc_default -N ' funcArg{n} ' -o ' fullfile(pwd, '/cluster/output/', ['stdout_' funcArg{n}]) ' -e ' fullfile(pwd, '/cluster/error/', ['stderr_' funcArg{n}]) ' ' fullfile(pwd, '/cluster/script', ['script_' funcArg{n}])]; 
 end
 
 for i = 1:length(funcArg)
 	% Create script
-	txt = [PBS command matlab_call(i)];
+	txt = [PBS modules command matlab_call(i)];
 	fid = fopen(fullfile(pwd, '/cluster/script/', ['script_', funcArg{i}]), 'w');
 	fprintf(fid, txt);
 	fclose(fid);
