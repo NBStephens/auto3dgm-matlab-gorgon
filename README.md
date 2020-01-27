@@ -17,9 +17,15 @@ Write out the transormation matrix and origin into the './aligned' folder.
 Set default submission time to 24:00 hrs from 3:00 hrs, to accomodate complex reorientations.
 	
 Set the submission to use a paid account. 
-	
+
 If you are not submitting from within the RyanLab you will need to change the "-A tmr21_b_g_sc_default" to another account (-A youraccount) or the campuswide open system (-A open).
 
+TROUBLESHOOTING: 
+
+Make certain you have replaced the mosek license file with a current license (free for academics) in the 
+This has only been tested by myself using MATLAB 2017b, and it is likely that future versions will break the code. 
+
+On Windows installations, Matlab may crash after subsampling due to missing dynamic link libraries (mosek64_7_1.dll). The quickest fix is to copy this file and the corresponding library (mosek64_7_1.lib) from ".\mosek\7\tools\platform\win64x86\bin" to the appropraite folder (".\mosek\7\toolbox\r2013a"). 
 
 MATLAB Code originally written by Jesús Puente (jparrubarrena@gmail.com); forks of this code include [PuenteAlignment](https://github.com/trgao10/PuenteAlignment), maintained by Tingran Gao (trgao10@math.duke.edu), and [auto3dgm-matlab-gorgon](https://github.com/JuliaWinchester/auto3dgm-matlab-gorgon), maintained by Julie Winchester (julia.m.winchester@gmail.com). This code has also been ported to R by Christopher Glynn (glynn@stat.duke.edu) under the name [*auto3dgm*](https://stat.duke.edu/~sayan/auto3dgm/).
 
