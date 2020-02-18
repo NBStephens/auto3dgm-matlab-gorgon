@@ -22,7 +22,8 @@ If you are not submitting from within the RyanLab you will need to change the "-
 
 TROUBLESHOOTING: 
 
-Make certain you have replaced the mosek license file with a current license (free for academics) in the 
+Make certain you have replaced the mosek license file with a current license (free for academics) in the "./auto3dgm-matlab-gorgon/software/mosek" folder.
+
 This has only been tested by myself using MATLAB 2017b, and it is likely that future versions will break the code. 
 
 On Windows installations, Matlab may crash after subsampling due to missing dynamic link libraries (mosek64_7_1.dll). The quickest fix is to copy this file and the corresponding library (mosek64_7_1.lib) from ".\mosek\7\tools\platform\win64x86\bin" to the appropraite folder (".\mosek\7\toolbox\r2013a"). 
