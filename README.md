@@ -8,7 +8,7 @@ Code adjusted to run on Penn State University HPC (aci-ics) torque system. Curre
 
 As such, you must run with manually in the sequence: 
 
-clusterMapLowRes -> clusterReduceLowRes -> clusterMapHighRes -> clusterMapHighRes (as described below).
+clusterMapLowRes -> clusterReduceLowRes -> clusterMapHighRes -> clusterReduceHighRes (as described below).
 
 Code has also been changed to:
 
