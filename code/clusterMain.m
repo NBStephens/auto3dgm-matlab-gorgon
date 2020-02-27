@@ -11,7 +11,7 @@ delete(fullfile(pwd, '/cluster/output/*'));
 delete(fullfile(pwd, '/cluster/error/*'));
 delete(fullfile(pwd, '/cluster/script/*'));
 
-PBS = '#PBS -A tmr21_b_g_sc_default -l nodes=1:ppn=1 -l mem=100gb -l walltime=48:00:00\n#PBS -m a\n';
+PBS = '#PBS -A tmr21_b_g_sc_default -l nodes=1:ppn=1 -l mem=10gb -l walltime=24:00:00\n#PBS -m a\n';
 modules = 'module load gcc/7.3.1 mkl/11.3.3 tbb/4.4.4 python/3.6.3-anaconda5.0.1 matlab/R2017b\n';
 command = 'matlab -nodesktop -nodisplay -nosplash -r ';
 matlab_call = ['\"cd ' pwd '; clusterRun; exit;\"'];
