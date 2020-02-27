@@ -20,6 +20,8 @@ Set the submission to use a paid account.
 
 If you are not submitting from within the RyanLab you will need to change the "-A tmr21_b_g_sc_default" to another account (-A youraccount) or the campuswide open system (-A open).
 
+!!! If you rerun the analysis it will delete your results folder, if you don't want that to happen please change to another folder !!!
+
 TROUBLESHOOTING: 
 
 Make certain you have replaced the mosek license file with a current license (free for academics) in the "./auto3dgm-matlab-gorgon/software/mosek" folder.
