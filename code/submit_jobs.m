@@ -2,7 +2,7 @@ function submit_jobs( pa, n_jobs )
 %Send jobs to the cluster
 
 % Text wrappers
-PBS        = '#PBS -A tmr21_b_g_sc_default -l nodes=1:ppn=1 -l mem=10gb -l walltime=48:00:00\n#PBS -m abe\n';
+PBS        = '#PBS -A tmr21_b_g_sc_default\n#PBS -l nodes=1:ppn=1\n#PBS -l mem=1gb\n#PBS -l walltime=48:00:00\n#PBS -m abe\n';
 modules = 'module load gcc/7.3.1 mkl/11.3.3 tbb/4.4.4 python/3.6.3-anaconda5.0.1 matlab/R2017b\n';
 script     = 'matlab -nodesktop -nodisplay -nojvm -nosplash -r ' ;
 matlab_cmd = @( kk ) ['\"cd ' pa.codePath 'code/;' 'jadd_path; load(''' pa.pfj 'job_' num2str( kk, '%.4d') ''');process_job(''' pa.pfj 'job_' num2str(kk,'%.4d') ''', ''' pa.pfj 'ans_' num2str(kk,'%.4d') ''', ''' pa.pfj 'f.mat'');exit;\"'];
