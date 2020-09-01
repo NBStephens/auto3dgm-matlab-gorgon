@@ -6,9 +6,31 @@ MATLAB code forked from JuliaWinchester/auto3dgm-matlab-gorgon (https://github.c
 
 Code adjusted to run on Penn State University HPC (aci-ics) torque system. Currently this cannot be run using the clusteRun.m script due to differences in the flag for waiting for previous scripts to finish. 
 
-As such, you must run with manually in the sequence: 
+As such, you must run with manually in the sequence (describedd in greater detail below): 
 
-clusterMapLowRes -> clusterReduceLowRes -> clusterMapHighRes -> clusterReduceHighRes (as described below).
+1 ) Edit the jadd_path.m file
+
+2 ) Downsample meshes and begin alignment
+
+```
+cd /to/directory/where/matlab/code/is/at
+clusterMapLowRes 
+```
+
+3) Gather the results from the low resolution alignment
+```
+clusterReduceLowRes 
+```
+
+4) Do the high resolution alignment
+```
+clusterMapHighRes
+```
+
+5) Gather the results from the high resolution alignment
+```
+clusterReduceHighRes
+```
 
 Code has also been changed to:
 
