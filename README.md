@@ -58,7 +58,7 @@ If you are using this version of the software please cite the zenodo doi along w
 
 ### Usage
 
-As such, you must run with manually in the sequence (describedd in greater detail below): 
+As such, you must run with manually in the sequence (described in greater detail below): 
 
 1 ) Edit the jadd_path.m file
 
